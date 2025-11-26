@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Calculadora</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="hero">
+    <h1 class="welcome">Bienvenido a la calculadora científica</h1>
+  </header>
+  <main class="container">
+    <h1>Calculadora</h1>
+    <div class="calculator" role="application" aria-label="Calculadora simple">
+      <div class="toolbar">
+        <button class="small" id="btnMPlus">M+</button>
+        <button class="small" id="btnMR">MR</button>
+        <button class="small" id="btnReset">Reset</button>
+        <button class="small" id="btnTheme">Tema</button>
+        <button class="small" id="btnBgToggle">Fondo</button>
+        <label class="small fileLabel" for="bgFile">Cargar Fondo</label>
+        <input id="bgFile" type="file" accept="image/*" hidden />
+        <button class="small" id="btnDegToggle" aria-pressed="false">Deg</button>
+        <button class="small" id="btnSci">Científica</button>
+        <button class="small" id="btnConverter">Convertidor</button>
+      </div>
+      <input id="display" class="display" type="text" readonly aria-live="polite" />
+      <div class="keys">
+        <button class="btn wide" data-action="clear" id="btnClear">C</button>
+        <button class="btn" data-action="divide">/</button>
+        <button class="btn" data-action="multiply">*</button>
+
+        <button class="btn" data-action="7">7</button>
+        <button class="btn" data-action="8">8</button>
+        <button class="btn" data-action="9">9</button>
+        <button class="btn" data-action="subtract">-</button>
+
+        <button class="btn" data-action="4">4</button>
+        <button class="btn" data-action="5">5</button>
+        <button class="btn" data-action="6">6</button>
+        <button class="btn" data-action="add">+</button>
+
+        <button class="btn" data-action="1">1</button>
+        <button class="btn" data-action="2">2</button>
+        <button class="btn" data-action="3">3</button>
+        <button class="btn tall" data-action="equals" id="btnEquals">=</button>
+
+        <button class="btn wide" data-action="0">0</button>
+        <button class="btn" data-action="decimal">.</button>
+      </div>
+      <!-- Teclas científicas (ocultables) -->
+      <div class="sci-keys" id="sciKeys" aria-hidden="true">
+        <button class="btn" data-action="sin">sin</button>
+        <button class="btn" data-action="cos">cos</button>
+        <button class="btn" data-action="tan">tan</button>
+        <button class="btn" data-action="sqrt">√</button>
+
+        <button class="btn" data-action="asin">asin</button>
+        <button class="btn" data-action="acos">acos</button>
+        <button class="btn" data-action="atan">atan</button>
+        <button class="btn" data-action="pow">pow</button>
+
+        <button class="btn" data-action="ln">ln</button>
+        <button class="btn" data-action="log">log</button>
+        <button class="btn" data-action="pi">π</button>
+        <button class="btn" data-action="fact">fact</button>
+      </div>
+    </div>
+    <div class="history" id="history" aria-live="polite">
+      <h3>Historial</h3>
+        <div class="hist-controls">
+          <button id="btnExportHistory" class="small">Exportar</button>
+          <label class="small fileLabel" for="historyFile">Importar</label>
+          <input id="historyFile" type="file" accept="application/json" hidden />
+        </div>
+        <ul id="historyList"></ul>
+    </div>
+    <!-- Panel convertidor -->
+    <div class="converter" id="converter" aria-hidden="true">
+      <div class="conv-header">
+        <h3>Convertidor</h3>
+        <button id="closeConv" class="small">Cerrar</button>
+      </div>
+      <div class="conv-tabs" role="tablist">
+        <button class="tab active" data-tab="temp">Temperatura</button>
+        <button class="tab" data-tab="currency">Moneda</button>
+        <button class="tab" data-tab="length">Medidas</button>
+        <button class="tab" data-tab="volume">Volumen</button>
+        <button class="tab" data-tab="mass">Masa</button>
+        <button class="tab" data-tab="speed">Velocidad</button>
+      </div>
+      <div class="conv-body">
+        <section class="conv-panel" id="conv-temp">
+          <div class="conv-row">
+            <input id="tempValue" type="number" placeholder="Valor" />
+            <select id="tempFrom"><option>Celsius</option><option>Fahrenheit</option><option>Kelvin</option></select>
+            <select id="tempTo"><option>Fahrenheit</option><option>Celsius</option><option>Kelvin</option></select>
+            <button id="btnTempConvert" class="btn small">Convertir</button>
+          </div>
+          <p class="conv-result" id="tempResult"></p>
+        </section>
+
+        <section class="conv-panel" id="conv-currency" hidden>
+          <div class="conv-row">
+            <input id="curValue" type="number" placeholder="Cantidad" />
+            <select id="curFrom"><option value="USD">USD</option><option value="EUR">EUR</option><option value="GBP">GBP</option><option value="MXN">MXN</option></select>
+            <select id="curTo"><option value="EUR">EUR</option><option value="USD">USD</option><option value="GBP">GBP</option><option value="MXN">MXN</option></select>
+            <button id="btnCurConvert" class="btn small">Convertir</button>
+          </div>
+          <div class="conv-row small">
+            <button id="btnUpdateRates" class="small">Actualizar tasas (online)</button>
+            <span id="ratesInfo" class="muted smallText">Tasas locales usadas si no hay conexión</span>
+          </div>
+          <p class="conv-result" id="curResult"></p>
+          <canvas id="ratesCanvas" width="300" height="60" aria-hidden="false"></canvas>
+        </section>
+
+        <section class="conv-panel" id="conv-length" hidden>
+          <div class="conv-row">
+            <input id="lenValue" type="number" placeholder="Valor" />
+            <select id="lenFrom"><option value="m">m</option><option value="km">km</option><option value="mi">mi</option><option value="cm">cm</option><option value="in">in</option></select>
+            <select id="lenTo"><option value="km">km</option><option value="m">m</option><option value="mi">mi</option><option value="cm">cm</option><option value="in">in</option></select>
+            <button id="btnLenConvert" class="btn small">Convertir</button>
+          </div>
+          <p class="conv-result" id="lenResult"></p>
+        </section>
+        <section class="conv-panel" id="conv-volume" hidden>
+          <div class="conv-row">
+            <input id="volValue" type="number" placeholder="Valor" />
+            <select id="volFrom"><option value="l">L</option><option value="ml">mL</option><option value="m3">m³</option><option value="gal">gal</option></select>
+            <select id="volTo"><option value="ml">mL</option><option value="l">L</option><option value="m3">m³</option><option value="gal">gal</option></select>
+            <button id="btnVolConvert" class="btn small">Convertir</button>
+          </div>
+          <p class="conv-result" id="volResult"></p>
+        </section>
+        <section class="conv-panel" id="conv-mass" hidden>
+          <div class="conv-row">
+            <input id="massValue" type="number" placeholder="Valor" />
+            <select id="massFrom"><option value="kg">kg</option><option value="g">g</option><option value="lb">lb</option><option value="oz">oz</option></select>
+            <select id="massTo"><option value="g">g</option><option value="kg">kg</option><option value="lb">lb</option><option value="oz">oz</option></select>
+            <button id="btnMassConvert" class="btn small">Convertir</button>
+          </div>
+          <p class="conv-result" id="massResult"></p>
+        </section>
+        <section class="conv-panel" id="conv-speed" hidden>
+          <div class="conv-row">
+            <input id="speedValue" type="number" placeholder="Valor" />
+            <select id="speedFrom"><option value="m/s">m/s</option><option value="km/h">km/h</option><option value="mph">mph</option></select>
+            <select id="speedTo"><option value="km/h">km/h</option><option value="m/s">m/s</option><option value="mph">mph</option></select>
+            <button id="btnSpeedConvert" class="btn small">Convertir</button>
+          </div>
+          <p class="conv-result" id="speedResult"></p>
+        </section>
+      </div>
+    </div>
+    <p class="hint">Usa teclado numérico o haz clic en los botones. Click en historial para reutilizar.</p>
+  </main>
+  <!-- math.js for safer evaluation and extended math features -->
+  <script src="https://cdn.jsdelivr.net/npm/mathjs@11.8.0/lib/browser/math.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
+

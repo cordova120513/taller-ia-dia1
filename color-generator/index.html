@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Colores Aleatorios</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Encabezado con título animado -->
+    <div class="header">
+        <h1 class="welcome-title">Bienvenido al Generador de Colores</h1>
+    </div>
+
+    <div class="container">
+        <h2 class="title">Generador de Colores Aleatorios</h2>
+        
+        <div class="content">
+            <!-- Div grande que muestra el color -->
+            <div class="color-display" id="colorDisplay"></div>
+            
+            <!-- Párrafo que muestra el código hexadecimal -->
+            <p class="color-code" id="colorCode">#FFFFFF</p>
+            
+            <!-- Botones de control -->
+            <div class="button-group">
+                <button class="btn btn-generate" id="generateBtn">Generar Color</button>
+                <button class="btn btn-copy" id="copyBtn">Copiar Código</button>
+                <button class="btn btn-draw" id="drawBtn">Dibujar</button>
+            </div>
+            
+            <!-- Mensaje de confirmación (oculto inicialmente) -->
+            <div class="copy-feedback" id="copyFeedback">¡Código copiado!</div>
+            <div class="draw-feedback" id="drawFeedback">Canvas abierto para dibujar</div>
+        </div>
+    </div>
+
+    <!-- Modal para el canvas de dibujo -->
+    <div class="draw-modal" id="drawModal">
+        <div class="draw-container">
+            <div class="draw-header">
+                <h3>Lienzo de Dibujo</h3>
+                <button class="close-btn" id="closeDrawBtn">&times;</button>
+            </div>
+            <canvas id="drawingCanvas"></canvas>
+            <div class="draw-controls">
+                <div class="color-info">
+                    <span>Color:</span>
+                    <span id="drawColorDisplay" class="color-box"></span>
+                    <span id="drawColorCode">#FFFFFF</span>
+                </div>
+                <div class="draw-tools">
+                    <label for="brushSize">Tamaño del pincel:</label>
+                    <input type="range" id="brushSize" min="1" max="50" value="5">
+                    <span id="brushSizeDisplay">5px</span>
+                </div>
+                <div class="draw-buttons">
+                    <button class="btn btn-clear-canvas" id="clearCanvasBtn">Limpiar</button>
+                    <button class="btn btn-save-drawing" id="saveDrawingBtn">Descargar Dibujo</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

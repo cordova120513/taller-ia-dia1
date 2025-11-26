@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intro al DOM</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        .caja {
+            width: 100px;
+            height: 100px;
+            /* Usar variable CSS para poder cambiar desde JS sin estilos inline */
+            background-color: var(--caja-bg, lightblue);
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* Transiciones para fondo, color de texto, transform (escala), opacidad y sombra */
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.15s ease, opacity 0.25s ease, box-shadow 0.25s ease;
+            opacity: 1;
+            box-shadow: none;
+        }
+        /* Clase para cambiar el color mediante JS */
+        .rojo {
+            /* Al usar la variable, la clase sólo cambia la variable y mantiene separación de estilos */
+            --caja-bg: red;
+            color: #fff; /* texto claro sobre fondo rojo */
+            transform: scale(1.03); /* ligera escala para dar énfasis */
+            box-shadow: 0 8px 18px rgba(0,0,0,0.18);
+            opacity: 1;
+        }
+        /* Clase visual genérica para énfasis (usar con otros colores) */
+        .activo {
+            transform: scale(1.03);
+            box-shadow: 0 8px 18px rgba(0,0,0,0.18);
+        }
+    </style>
+</head>
+<body>
+    <h1>Manipulando el DOM con JS</h1>
+    
+    <div id="miCaja" class="caja">Caja</div>
+    
+    <button id="btnCambiarColor">Cambiar Color</button>
+    <button id="btnCambiarTexto">Cambiar Texto</button>
+    <button id="btnColorAzul">Color Azul</button>
+    <button id="btnColorVerde">Color Verde</button>
+    <button id="btnColorAmarillo">Color Amarillo</button>
+    <button id="btnColorNaranja">Color Naranja</button>
+
+    <script src="dom.js"></script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reloj Digital Interactivo con Alarma</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Saludo según la hora del día -->
+        <div class="greeting" id="greeting"></div>
+
+        <!-- Display del reloj digital -->
+        <div class="clock-display">
+            <div class="clock" id="reloj">00:00:00</div>
+            <div class="format-toggle">
+                <button id="toggleFormat" class="toggle-btn">24h</button>
+            </div>
+        </div>
+
+        <!-- Display de la fecha -->
+        <div class="date-display" id="fecha"></div>
+
+        <!-- Sección de alarma -->
+        <div class="alarm-section">
+            <h2>⏰ Configurar Alarma</h2>
+            
+            <!-- Controles de alarma -->
+            <div class="alarm-controls">
+                <input 
+                    type="time" 
+                    id="horaAlarma" 
+                    class="time-input"
+                    placeholder="Selecciona hora"
+                >
+                <button id="btnEstablecerAlarma" class="btn btn-set">
+                    Establecer Alarma
+                </button>
+                <button id="btnCancelarAlarma" class="btn btn-cancel" disabled>
+                    Cancelar Alarma
+                </button>
+            </div>
+
+            <!-- Estado de la alarma -->
+            <div class="alarm-status" id="estadoAlarma">
+                <p>Sin alarma configurada</p>
+            </div>
+
+            <!-- Indicador visual de alarma activa -->
+            <div class="alarm-indicator" id="indicadorAlarma"></div>
+        </div>
+
+        <!-- Área de notificación para la alarma -->
+        <div class="alarm-notification" id="notificacionAlarma">
+            <h3>⏰ ¡ALARMA!</h3>
+            <p>Es hora de despertar</p>
+            <button id="btnDespedirAlarma" class="btn btn-dismiss">
+                Desactivar
+            </button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

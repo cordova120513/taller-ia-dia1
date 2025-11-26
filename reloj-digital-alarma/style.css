@@ -1,0 +1,478 @@
+/* ==========================================
+   ESTILOS - RELOJ DIGITAL INTERACTIVO
+   ========================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Courier New', monospace;
+    background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Contenedor principal */
+.container {
+    background: rgba(0, 0, 0, 0.9);
+    border-radius: 20px;
+    padding: 50px;
+    box-shadow: 
+        0 0 30px rgba(100, 200, 255, 0.3),
+        0 0 60px rgba(100, 200, 255, 0.1),
+        inset 0 0 20px rgba(100, 200, 255, 0.05);
+    border: 2px solid rgba(100, 200, 255, 0.2);
+    max-width: 600px;
+    width: 100%;
+    animation: glowBorder 3s ease-in-out infinite;
+}
+
+/* ===== SALUDO ===== */
+
+.greeting {
+    text-align: center;
+    font-size: 24px;
+    color: #64c8ff;
+    margin-bottom: 30px;
+    text-shadow: 0 0 10px rgba(100, 200, 255, 0.5);
+    animation: fadeInOut 3s ease-in-out;
+}
+
+/* ===== RELOJ DIGITAL ===== */
+
+.clock-display {
+    position: relative;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.clock {
+    font-size: 80px;
+    font-weight: bold;
+    color: #00ff00;
+    text-shadow: 
+        0 0 10px #00ff00,
+        0 0 20px #00aa00,
+        0 0 30px rgba(0, 255, 0, 0.5);
+    letter-spacing: 5px;
+    font-family: 'Courier New', monospace;
+    margin-bottom: 20px;
+    animation: glowText 2s ease-in-out infinite;
+}
+
+/* Botón toggle formato */
+.format-toggle {
+    display: flex;
+    justify-content: center;
+}
+
+.toggle-btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.toggle-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+}
+
+/* ===== FECHA ===== */
+
+.date-display {
+    text-align: center;
+    font-size: 18px;
+    color: #64c8ff;
+    margin-bottom: 40px;
+    text-shadow: 0 0 10px rgba(100, 200, 255, 0.3);
+    letter-spacing: 1px;
+}
+
+/* ===== SECCIÓN DE ALARMA ===== */
+
+.alarm-section {
+    background: rgba(0, 20, 40, 0.8);
+    border-radius: 15px;
+    padding: 30px;
+    border: 1px solid rgba(100, 200, 255, 0.2);
+    margin-bottom: 30px;
+}
+
+.alarm-section h2 {
+    color: #ff6b6b;
+    margin-bottom: 25px;
+    text-align: center;
+    text-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
+    font-size: 22px;
+}
+
+/* Controles de alarma */
+.alarm-controls {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+}
+
+.time-input {
+    flex: 1;
+    min-width: 150px;
+    padding: 12px 15px;
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid rgba(100, 200, 255, 0.3);
+    border-radius: 8px;
+    color: #00ff00;
+    font-size: 16px;
+    font-family: 'Courier New', monospace;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.time-input:hover,
+.time-input:focus {
+    outline: none;
+    border-color: #64c8ff;
+    box-shadow: 0 0 10px rgba(100, 200, 255, 0.3);
+}
+
+/* Estilos del input time */
+.time-input::placeholder {
+    color: rgba(100, 200, 255, 0.5);
+}
+
+/* Botones */
+.btn {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn-set {
+    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(17, 153, 142, 0.3);
+}
+
+.btn-set:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(17, 153, 142, 0.5);
+}
+
+.btn-set:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn-cancel {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(245, 87, 108, 0.3);
+}
+
+.btn-cancel:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(245, 87, 108, 0.5);
+}
+
+.btn-cancel:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Estado de alarma */
+.alarm-status {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 20px;
+    border-left: 4px solid #ff6b6b;
+}
+
+.alarm-status p {
+    color: #64c8ff;
+    font-size: 16px;
+    margin: 0;
+}
+
+.alarm-active {
+    color: #38ef7d !important;
+    border-left-color: #38ef7d !important;
+    animation: pulse 1s ease-in-out infinite;
+}
+
+/* Indicador visual de alarma activa */
+.alarm-indicator {
+    display: none;
+    width: 12px;
+    height: 12px;
+    background: #38ef7d;
+    border-radius: 50%;
+    margin-top: 15px;
+    animation: indicadorParpadeo 1s ease-in-out infinite;
+    box-shadow: 0 0 10px #38ef7d;
+}
+
+.alarm-indicator.visible {
+    display: block;
+}
+
+/* ===== NOTIFICACIÓN DE ALARMA ===== */
+
+.alarm-notification {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    background: linear-gradient(135deg, #ff6b6b 0%, #ff8e7b 100%);
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 0 40px rgba(255, 107, 107, 0.8);
+    border: 3px solid #ff4444;
+    z-index: 1000;
+    animation: none;
+}
+
+.alarm-notification.visible {
+    display: block;
+    animation: popUp 0.5s ease-out, parpadeoAlerta 0.6s ease-in-out infinite;
+}
+
+.alarm-notification h3 {
+    font-size: 48px;
+    color: white;
+    margin-bottom: 10px;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.alarm-notification p {
+    font-size: 24px;
+    color: white;
+    margin-bottom: 30px;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.btn-dismiss {
+    background: white;
+    color: #ff6b6b;
+    font-size: 16px;
+    padding: 15px 40px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.btn-dismiss:hover {
+    background: #f0f0f0;
+    transform: translateY(-2px);
+}
+
+/* ===== ANIMACIONES ===== */
+
+@keyframes glowText {
+    0%, 100% {
+        text-shadow: 
+            0 0 10px #00ff00,
+            0 0 20px #00aa00,
+            0 0 30px rgba(0, 255, 0, 0.5);
+    }
+    50% {
+        text-shadow: 
+            0 0 20px #00ff00,
+            0 0 30px #00aa00,
+            0 0 50px rgba(0, 255, 0, 0.8);
+    }
+}
+
+@keyframes glowBorder {
+    0%, 100% {
+        box-shadow: 
+            0 0 30px rgba(100, 200, 255, 0.3),
+            0 0 60px rgba(100, 200, 255, 0.1),
+            inset 0 0 20px rgba(100, 200, 255, 0.05);
+    }
+    50% {
+        box-shadow: 
+            0 0 40px rgba(100, 200, 255, 0.5),
+            0 0 80px rgba(100, 200, 255, 0.2),
+            inset 0 0 20px rgba(100, 200, 255, 0.1);
+    }
+}
+
+@keyframes fadeInOut {
+    0%, 100% {
+        opacity: 0.7;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+@keyframes indicadorParpadeo {
+    0%, 100% {
+        opacity: 1;
+        box-shadow: 0 0 10px #38ef7d;
+    }
+    50% {
+        opacity: 0.3;
+        box-shadow: 0 0 5px #38ef7d;
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.7;
+    }
+}
+
+@keyframes parpadeoAlerta {
+    0%, 100% {
+        background: linear-gradient(135deg, #ff6b6b 0%, #ff8e7b 100%);
+        transform: translate(-50%, -50%) scale(1);
+    }
+    50% {
+        background: linear-gradient(135deg, #ff8e7b 0%, #ff6b6b 100%);
+        transform: translate(-50%, -50%) scale(1.05);
+    }
+}
+
+@keyframes popUp {
+    from {
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 0;
+    }
+    to {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+}
+
+/* Animación de parpadeo del contenedor cuando suena alarma */
+.container.alarma-activa {
+    animation: containerFlash 0.5s ease-in-out infinite;
+}
+
+@keyframes containerFlash {
+    0%, 100% {
+        background: rgba(0, 0, 0, 0.9);
+        border-color: rgba(100, 200, 255, 0.2);
+    }
+    50% {
+        background: rgba(255, 107, 107, 0.3);
+        border-color: rgba(255, 107, 107, 0.4);
+    }
+}
+
+/* ===== RESPONSIVE ===== */
+
+@media (max-width: 768px) {
+    .container {
+        padding: 30px;
+    }
+
+    .clock {
+        font-size: 60px;
+    }
+
+    .greeting {
+        font-size: 20px;
+    }
+
+    .date-display {
+        font-size: 16px;
+    }
+
+    .alarm-section h2 {
+        font-size: 18px;
+    }
+
+    .time-input {
+        min-width: 100%;
+    }
+
+    .alarm-controls {
+        flex-direction: column;
+    }
+
+    .btn {
+        width: 100%;
+    }
+
+    .alarm-notification {
+        padding: 30px;
+        max-width: 90%;
+    }
+
+    .alarm-notification h3 {
+        font-size: 36px;
+    }
+
+    .alarm-notification p {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 20px;
+        border-radius: 15px;
+    }
+
+    .clock {
+        font-size: 48px;
+        letter-spacing: 2px;
+    }
+
+    .greeting {
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
+
+    .date-display {
+        font-size: 14px;
+        margin-bottom: 30px;
+    }
+
+    .alarm-section {
+        padding: 20px;
+    }
+
+    .alarm-section h2 {
+        font-size: 16px;
+        margin-bottom: 15px;
+    }
+
+    .alarm-notification h3 {
+        font-size: 28px;
+    }
+
+    .alarm-notification p {
+        font-size: 16px;
+    }
+
+    .btn {
+        font-size: 12px;
+        padding: 10px 15px;
+    }
+}

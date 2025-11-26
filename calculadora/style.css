@@ -1,0 +1,123 @@
+:root{
+  --bg: linear-gradient(180deg,#eef2ff 0%, #f8fbff 100%);
+  --card: #ffffff;
+  --accent: #3b82f6;
+  --accent-2: #60a5fa;
+  --text: #0f172a;
+  --muted: #6b7280;
+}
+*{box-sizing:border-box}
+h1{font-size:20px;text-align:center;margin:0 0 12px;color:var(--text);font-weight:600}
+
+/* Page background: elegant landscape with subtle overlay */
+body{font-family:Inter, system-ui, sans-serif;background:linear-gradient(180deg, rgba(10,15,30,0.20), rgba(255,255,255,0.02)), url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1600&q=80') center/cover fixed no-repeat;color:var(--text);display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0}
+.container{width:360px;max-width:95vw}
+
+/* Hero / welcome */
+.hero{position:fixed;top:26px;left:50%;transform:translateX(-50%);z-index:30;pointer-events:none;width:100%;display:flex;justify-content:center}
+.welcome{font-family:'Playfair Display', serif;color:rgba(255,255,255,0.95);font-size:28px;margin:0;padding:6px 18px;background:linear-gradient(90deg, rgba(0,0,0,0.25), rgba(255,255,255,0.04));border-radius:12px;backdrop-filter: blur(6px);box-shadow:0 8px 24px rgba(2,6,23,0.45);opacity:0;transform:translateY(-8px) scale(.98);animation:welcomeIn .9s ease forwards}
+@keyframes welcomeIn{to{opacity:1;transform:translateY(0) scale(1)}}
+
+/* Make calculator card slightly translucent to blend with background */
+.calculator{background:linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.72));border-radius:14px;padding:18px;box-shadow:0 18px 40px rgba(2,6,23,0.18);border:1px solid rgba(255,255,255,0.5);backdrop-filter: blur(6px)}
+h1{font-size:20px;text-align:center;margin:0 0 12px;color:var(--text);font-weight:600}
+.calculator{background:linear-gradient(180deg,rgba(255,255,255,0.9),#fff);border-radius:14px;padding:18px;box-shadow:0 12px 30px rgba(16,24,40,0.12);border:1px solid rgba(255,255,255,0.6)}
+.display{width:100%;height:68px;border-radius:12px;border:0;padding:12px 16px;font-size:28px;text-align:right;margin-bottom:14px;background:linear-gradient(180deg,#f8fbff,#f3f8ff);box-shadow:inset 0 -6px 18px rgba(59,130,246,0.03);color:var(--text);transition:transform .18s ease, box-shadow .18s ease}
+.display.pop{transform:scale(1.02);box-shadow:0 8px 24px rgba(59,130,246,0.12)}
+.display.clear-anim{opacity:0.6;transform:scale(.995)}
+.keys{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.btn{background:linear-gradient(180deg,#fbfdff,#f1f7ff);border:0;padding:14px;border-radius:10px;font-size:16px;cursor:pointer;box-shadow:0 6px 14px rgba(16,24,40,0.06);position:relative;overflow:hidden;transition:transform .12s ease, box-shadow .12s ease, background .12s ease}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(16,24,40,0.09)}
+.btn:active{transform:translateY(0)}
+.btn.wide{grid-column:span 2}
+.btn.tall{grid-row:span 2;height:calc(100% + 10px)}
+.btn[data-action="equals"]{background:linear-gradient(180deg,var(--accent),var(--accent-2));color:#fff;box-shadow:0 10px 26px rgba(59,130,246,0.18)}
+.btn:focus{outline:none;box-shadow:0 0 0 4px rgba(96,165,250,0.12)}
+.hint{text-align:center;color:var(--muted);font-size:13px;margin-top:12px}
+
+/* Ripple effect */
+.btn .ripple{position:absolute;border-radius:50%;transform:scale(0);background:rgba(15,23,42,0.12);animation:ripple 600ms ease-out;pointer-events:none}
+@keyframes ripple{to{transform:scale(4);opacity:0}}
+
+/* Pressed visual for keyboard events */
+.btn.pressed{transform:translateY(1px) scale(.995);box-shadow:0 6px 12px rgba(16,24,40,0.05);opacity:0.98}
+
+/* Visual emphasis class reused */
+.activo{transform:scale(1.03);box-shadow:0 18px 40px rgba(16,24,40,0.12)}
+
+/* Small responsive tweaks */
+@media (max-width:380px){
+  .container{width:320px}
+  .display{height:60px;font-size:22px}
+}
+
+/* Toolbar and history */
+.toolbar{display:grid;grid-template-columns:repeat(9,1fr);gap:8px;margin-bottom:10px}
+.toolbar .small{padding:8px;border-radius:8px;background:linear-gradient(180deg,#fff,#f3f8ff);border:0;box-shadow:0 6px 12px rgba(16,24,40,0.04);cursor:pointer}
+.toolbar .small:active{transform:translateY(1px)}
+.fileLabel{display:inline-block}
+.history{margin-top:14px;background:transparent;border-radius:8px;padding:8px}
+.history h3{margin:0 0 6px;font-size:14px;color:var(--muted)}
+.hist-controls{display:flex;gap:8px;margin-bottom:6px}
+.hist-controls .small{padding:6px 8px;border-radius:6px}
+.history ul{list-style:none;padding:0;margin:0;max-height:140px;overflow:auto}
+.history li{padding:8px;border-radius:6px;background:rgba(15,23,42,0.03);margin-bottom:6px;cursor:pointer;display:flex;justify-content:space-between}
+.history li:hover{background:rgba(59,130,246,0.06)}
+
+/* Scientific keys panel */
+.sci-keys{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px;max-height:0;overflow:hidden;transition:max-height .28s ease,opacity .2s ease;opacity:0}
+.sci-keys.open{max-height:240px;opacity:1}
+.sci-keys .btn{background:linear-gradient(180deg,#fff,#f5fbff)}
+
+/* Ensure keys and sci keys feel symmetric: uniform padding/height */
+.keys .btn, .sci-keys .btn{padding:12px 14px;font-size:15px;border-radius:10px}
+
+/* Dark theme */
+body[data-theme='dark']{background:linear-gradient(180deg,#0f172a 0%, #071032 100%);color:#e6eef8}
+body[data-theme='dark'] .calculator{background:linear-gradient(180deg,#071032,#071a3a);box-shadow:0 12px 34px rgba(2,6,23,0.6)}
+body[data-theme='dark'] .display{background:linear-gradient(180deg,#06102a,#07162c);color:#e6eef8;box-shadow:inset 0 -6px 18px rgba(0,0,0,0.4)}
+body[data-theme='dark'] .btn{background:linear-gradient(180deg,#0b1220,#0e1630);color:#e6eef8;box-shadow:0 8px 20px rgba(2,6,23,0.6)}
+body[data-theme='dark'] .btn[data-action="equals"]{background:linear-gradient(180deg,#2563eb,#1e40af)}
+body[data-theme='dark'] .history li{background:rgba(255,255,255,0.03)}
+
+/* Background toggle: when data-bg='hidden' remove image and keep subtle gradient */
+body[data-bg='hidden']{
+  background-image: linear-gradient(180deg, rgba(10,15,30,0.30), rgba(0,0,0,0.02));
+  background-color: #071032;
+  background-size: cover;
+}
+
+/* If a custom background is set via inline style we keep it; file label styling */
+.fileLabel{cursor:pointer;text-align:center}
+.fileLabel:hover{transform:translateY(-2px)}
+
+/* Converter panel */
+.converter{margin-top:14px;background:linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.02));border-radius:12px;padding:12px;border:1px solid rgba(255,255,255,0.04);box-shadow:inset 0 -6px 18px rgba(16,24,40,0.02);transition:transform .28s ease,opacity .28s ease;opacity:0;transform:translateY(10px);max-height:0;overflow:hidden}
+.converter[aria-hidden="false"]{opacity:1;transform:translateY(0);max-height:420px}
+.conv-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.conv-tabs{display:flex;gap:8px;margin-bottom:8px}
+.conv-tabs .tab{padding:8px 10px;border-radius:8px;background:rgba(255,255,255,0.03);cursor:pointer;border:0}
+.conv-tabs .tab.active{background:linear-gradient(90deg, rgba(59,130,246,0.12), rgba(96,165,250,0.06));box-shadow:0 6px 14px rgba(59,130,246,0.06)}
+.conv-body{padding:6px}
+.conv-row{display:flex;gap:8px;align-items:center;margin-bottom:8px}
+.conv-row input,.conv-row select{padding:8px;border-radius:8px;border:1px solid rgba(0,0,0,0.06);background:rgba(255,255,255,0.9)}
+.conv-row .small{padding:8px 10px}
+.conv-result{font-weight:600;margin:6px 0;color:var(--text)}
+.muted{color:var(--muted)}
+.smallText{font-size:12px}
+
+/* Conversion history inside converter */
+.conv-history{margin-top:8px}
+.conv-history ul{list-style:none;padding:0;margin:0;max-height:120px;overflow:auto}
+.conv-history li{padding:6px;border-radius:6px;background:rgba(0,0,0,0.03);margin-bottom:6px;display:flex;justify-content:space-between;align-items:center}
+.conv-history .clearConv{background:transparent;border:0;color:var(--muted);cursor:pointer}
+
+/* Sparkline canvas */
+#ratesCanvas{width:100%;height:60px;border-radius:8px;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));box-shadow:inset 0 -6px 12px rgba(16,24,40,0.02);margin-top:8px}
+/* pulse effect when rates updated */
+.rates-updated{animation:ratesPulse .42s ease}
+@keyframes ratesPulse{0%{transform:scale(1);box-shadow:0 0 0 rgba(96,165,250,0)}50%{transform:scale(1.01);box-shadow:0 8px 30px rgba(96,165,250,0.08)}100%{transform:scale(1);box-shadow:0 0 0 rgba(96,165,250,0)}}
+
+/* Sparkline tooltip */
+.spark-tooltip{position:fixed;pointer-events:none;transform:translate(-50%,-120%);padding:6px 8px;border-radius:6px;background:rgba(15,23,42,0.95);color:#fff;font-size:12px;box-shadow:0 8px 20px rgba(2,6,23,0.35);white-space:nowrap;z-index:60}
+.spark-tooltip.light{background:rgba(255,255,255,0.96);color:#0f172a}
