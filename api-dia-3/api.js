@@ -3,11 +3,6 @@ const pokemonInput = document.getElementById('pokemonInput');
 const pokemonCard = document.getElementById('pokemonCard');
 const errorMsg = document.getElementById('errorMsg');
 
-// DOM Elements for Pokemon Data
-const searchBtn = document.getElementById('searchBtn');
-const pokemonInput = document.getElementById('pokemonInput');
-const pokemonCard = document.getElementById('pokemonCard');
-const errorMsg = document.getElementById('errorMsg');
 
 // DOM Elements for Pokemon Data
 const pokeImg = document.getElementById('pokeImg');
