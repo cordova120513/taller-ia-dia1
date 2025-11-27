@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validador de Palíndromos</title>
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-hover: #4f46e5;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text: #1e293b;
+            --text-light: #64748b;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: var(--card-bg);
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        h1 {
+            margin-top: 0;
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+            color: var(--text-light);
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            box-sizing: border-box;
+            transition: border-color 0.2s;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.2s;
+        }
+
+        button:hover {
+            background-color: var(--primary-hover);
+        }
+
+        #resultado {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            display: none;
+        }
+
+        .success {
+            background-color: #dcfce7;
+            color: #166534;
+        }
+
+        .error {
+            background-color: #fee2e2;
+            color: #991b1b;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Validador de Palíndromos</h1>
+        <div class="input-group">
+            <label for="textoInput">Ingresa una palabra o frase</label>
+            <input type="text" id="textoInput" placeholder="Ej: Anita lava la tina">
+        </div>
+        <button onclick="validar()">Verificar</button>
+        <div id="resultado"></div>
+    </div>
+
+    <script src="palindromo.js"></script>
+    <script>
+        function validar() {
+            const input = document.getElementById('textoInput');
+            const resultadoDiv = document.getElementById('resultado');
+            const texto = input.value;
+
+            if (!texto.trim()) {
+                resultadoDiv.style.display = 'none';
+                return;
+            }
+
+            const es = esPalindromo(texto);
+
+            resultadoDiv.style.display = 'block';
+            if (es) {
+                resultadoDiv.textContent = `"${texto}" es un palíndromo ✨`;
+                resultadoDiv.className = 'success';
+            } else {
+                resultadoDiv.textContent = `"${texto}" no es un palíndromo ❌`;
+                resultadoDiv.className = 'error';
+            }
+        }
+
+        // Permitir validar con Enter
+        document.getElementById('textoInput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                validar();
+            }
+        });
+    </script>
+</body>
+
+</html>
